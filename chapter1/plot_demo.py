@@ -62,7 +62,7 @@ df_long = pd.melt(df, value_vars=df.columns.tolist()[1:],
 
 st.write(df_long)
 sns.set(style="whitegrid")
-sns.displot(x="value", data=df_long, hue="variable", kind="kde", alpha=0.5,
+sns.displot(x="value", data=df_long, hue="variable", kind="hist", alpha=0.5,
             ax=ax)  # create a histogram plot , `kind` must be one of `bar`, `box`, `kde`,'ecdf', `hex`, `hist`, `pie` or `scatter`
 st.pyplot()  # display the histogram plot
 
