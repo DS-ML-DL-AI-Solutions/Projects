@@ -38,7 +38,7 @@ st.write("plotting random binomial distribution")
 chart2 = st.line_chart(binom_dist)  # create a line chart
 # sc
 
-for i in range(100):
+for i in range(101):
     # update the progress bar with the current value
     progress_bar.progress(i)
     # update the status text area with the current value
@@ -68,7 +68,6 @@ st.pyplot()  # display the histogram plot
 
 st.write(last_row)  # print the random number
 st.write(binom_dist)  # print the random number
-progress_bar.progress(100)  # update the progress bar
 
 
 st.button("Start")  # create a button to start the progress bar
