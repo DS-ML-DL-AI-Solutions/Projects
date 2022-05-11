@@ -4,8 +4,11 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
+st.title("Central Limit Theorem with binomal distribution")
+st.header("Binomial Distribution Plot for 1000 samples")
+prob_succes=st.number_input("Enter the probability of coin flip", max_value=1, min_value=0,value=0.5)
 # create binomal distribution n is the number of trials, p is the probability of success and size is the number of samples
-binom_dist = np.random.binomial(n=1, p=0.5, size=1000)
+binom_dist = np.random.binomial(n=1, p=prob_succes, size=1000)
 st.write("binomial distribution", binom_dist)
 
 # calculate the population mean of the binomial distribution
