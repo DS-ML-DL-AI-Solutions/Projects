@@ -5,7 +5,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 st.title("Central Limit Theorem with binomal distribution")
-st.header("Binomial Distribution Plot for 1000 samples")
+st.header("Created by Mustafa Bozkaya")
+st.subheader("This is a simple program to create a plot of the Central Limit Theorem with the binomal distribution")
+st.write(('This app simulates a thousand coin flips using the chance of heads input below,'
+          'and then samples with replacement from that population and plots the histogram of the'
+          ' means of the samples, in order to illustrate the Central Limit Theorem!'))
 prob_succes=st.number_input("Enter the probability of coin flip", max_value=1, min_value=0,value=0.5)
 # create binomal distribution n is the number of trials, p is the probability of success and size is the number of samples
 binom_dist = np.random.binomial(n=1, p=prob_succes, size=1000)
