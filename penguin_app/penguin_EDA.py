@@ -1,5 +1,6 @@
 # penguin EDA applications
 
+import io
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -13,7 +14,6 @@ class Penguin_EDA:
         self.data_shape = self.data.shape
         self.data_columns = self.data.columns
         self.data_types = self.data.dtypes
-        self.data_info = self.data.info()
         self.initapp()  # initialize the app
 
     def initapp(self):
@@ -32,9 +32,19 @@ class Penguin_EDA:
         st.write("The penguins data contains the following columns:")
         st.write(self.data_columns)  # write the data columns
         # write the data information
-        st.write("The penguins data information:")
+        st.write("The penguins data descriptive statistics")
 
-        st.write(self.data_info)  # write the data information (number of rows, number of columns, data types, data memory size, data memory usage, data memory usage percent, data memory usage percent relative to the total physical memory, data memory usage percent relative to the total swap memory, data memory usage percent relative to the total virtual memory)
+        # write the data descriptive statistics (mean, std, min, max, 25%, 50%, 75%) for each column
+        st.write(self.data.describe())
+        # self.data.info()  # write the data information (number of rows, number of columns, data types, data memory size, data memory usage, data memory usage percent, data memory usage percent relative to the total physical memory, data memory usage percent relative to the total swap memory, data memory usage percent relative to the total virtual memory)
+
+        buffer = io.StringIO()  # create a buffer object to store the dataframe information
+        self.data.info(buf=buffer)
+        s = buffer.getvalue()  # get the dataframe information from the buffer object
+        # split the dataframe information into a list
+        s = s.split('\n')
+        st.write("The penguins data information")  # write the data information
+        st.write(s)  # write the data information
 
 
 if __name__ == "__main__":
