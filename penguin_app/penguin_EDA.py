@@ -47,6 +47,25 @@ class Penguin_EDA:
         st.write("The penguins data information")  # write the data information
         st.write(s)  # write the data information
 
+        # write the data visualization
+        st.markdown("### The penguins data visualization")
+        selected_species = st.selectbox("Select a species to visualize",
+                                        self.data["species"].unique())
+        # write the selected species
+        st.write("You selected:", selected_species)
+        select_x = st.selectbox("Select a column to plot on the x-axis",
+                                self.data.select_dtypes(include=['int64', 'float64']).columns)
+        select_y = st.selectbox("Select a column to plot on the y-axis",
+                                self.data.select_dtypes(include=['int64', 'float64']).columns)
+
+        # create a scatter plot of the selected species and the selected columns on the x and y axis
+        fig, axes = plt.subplots(1, 1, figsize=(10, 10))
+        sns.scatterplot(x=select_x, y=select_y,
+                        data=self.data[self.data["species"] == selected_species], ax=axes)
+        st.pyplot(fig)
+
+        st.markdown("### The penguins data analysis")
+
 
 if __name__ == "__main__":
     # load the data
