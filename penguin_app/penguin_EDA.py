@@ -49,22 +49,28 @@ class Penguin_EDA:
 
         # write the data visualization
         st.markdown("### The penguins data visualization")
-        selected_species = st.selectbox("Select a species to visualize",
-                                        self.data["species"].unique())
-        # write the selected species
-        st.write("You selected:", selected_species)
-        select_x = st.selectbox("Select a column to plot on the x-axis",
-                                self.data.select_dtypes(include=['int64', 'float64']).columns)
-        select_y = st.selectbox("Select a column to plot on the y-axis",
-                                self.data.select_dtypes(include=['int64', 'float64']).columns)
 
-        # create a scatter plot of the selected species and the selected columns on the x and y axis
-        fig, axes = plt.subplots(1, 1, figsize=(10, 10))
-        sns.scatterplot(x=select_x, y=select_y,
-                        data=self.data[self.data["species"] == selected_species], ax=axes)
-        st.pyplot(fig)
+        # create side bar menu for the data visualization
+        st.sidebar.header("Data analysis")
+        st.sidebar.markdown("### The penguins data visualization")
+        # create a checkbox to select the data visualization
+        # if the checkbox is selected show the data visualization
+        if st.sidebar.checkbox("Show data visualization"):
 
-        st.markdown("### The penguins data analysis")
+            selected_species = st.sidebar.selectbox("Select a species to visualize",
+                                                    self.data["species"].unique())
+            # write the selected species
+            st.write("You selected:", selected_species)
+            select_x = st.sidebar.selectbox("Select a column to plot on the x-axis",
+                                            self.data.select_dtypes(include=['int64', 'float64']).columns)
+            select_y = st.sidebar.selectbox("Select a column to plot on the y-axis",
+                                            self.data.select_dtypes(include=['int64', 'float64']).columns)
+
+            # create a scatter plot of the selected species and the selected columns on the x and y axis
+            fig, axes = plt.subplots(1, 1, figsize=(10, 10))
+            sns.scatterplot(x=select_x, y=select_y,
+                            data=self.data[self.data["species"] == selected_species], ax=axes)
+            st.pyplot(fig)
 
 
 if __name__ == "__main__":
