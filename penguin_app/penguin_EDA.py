@@ -1,6 +1,7 @@
 # penguin EDA applications
 
 import io
+import os
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -49,7 +50,7 @@ class Penguin_EDA:
 
 if __name__ == "__main__":
     # load the data
-    data_path = os.path.join(os.getcwd(), "penguin_app/penguins.csv")
+    data_path = os.path.join(os.path.dirname(__file__), "penguins.csv")
     data = pd.read_csv(data_path)  # load the data from the csv file
     # create the app
     app = Penguin_EDA(data)  # create the app
