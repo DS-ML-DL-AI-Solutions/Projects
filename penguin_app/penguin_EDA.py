@@ -49,6 +49,7 @@ class Penguin_EDA:
 
 if __name__ == "__main__":
     # load the data
-    data = pd.read_csv("penguins.csv")  # load the data from the csv file
+    data_path = os.path.join(os.getcwd(), "penguin_app/penguins.csv")
+    data = pd.read_csv(data_path)  # load the data from the csv file
     # create the app
     app = Penguin_EDA(data)  # create the app
