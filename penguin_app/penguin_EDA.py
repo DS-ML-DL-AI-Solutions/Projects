@@ -2,6 +2,7 @@
 
 import io
 import os
+import time
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -32,33 +33,62 @@ class Penguin_EDA:
         # write the data columns
         st.write("The penguins data contains the following columns:")
         st.write(self.data_columns)  # write the data columns
-        # write the data information
-        st.write("The penguins data descriptive statistics")
 
-        # write the data descriptive statistics (mean, std, min, max, 25%, 50%, 75%) for each column
-        st.write(self.data.describe())
-        # self.data.info()  # write the data information (number of rows, number of columns, data types, data memory size, data memory usage, data memory usage percent, data memory usage percent relative to the total physical memory, data memory usage percent relative to the total swap memory, data memory usage percent relative to the total virtual memory)
+        # create side bar menu for data visualization
+        st.sidebar.title("Penguins Data Analysis Tools")  # sidebar title
+        # sidebar options
+        sidebar_option = st.sidebar.selectbox(
+            "Please select an option", ("Show data", "Show data types",
+                                        "Show data summary", "Show data visualization", "Show data information"))  # select an option from the sidebar
 
-        buffer = io.StringIO()  # create a buffer object to store the dataframe information
-        self.data.info(buf=buffer)
-        s = buffer.getvalue()  # get the dataframe information from the buffer object
-        # split the dataframe information into a list
-        s = s.split('\n')
-        st.write("The penguins data information")  # write the data information
-        st.write(s)  # write the data information
+        if sidebar_option == "Show data Top 10":
+            st.dataframe(self.data.head(10))
+        elif sidebar_option == "Show data types":
+            st.write(self.data_types)
+        elif sidebar_option == "Show data summary":
+            # write the data descriptive statistics (mean, std, min, max, 25%, 50%, 75%) for each column
+            st.write("The penguins data descriptive statistics")
+            st.write(self.data.describe())
+            # self.data.info()  # write the data information (number of rows, number of columns, data types, data memory size, data memory usage, data memory usage percent, data memory usage percent relative to the total physical memory, data memory usage percent relative to the total swap memory, data memory usage percent relative to the total virtual memory)
 
-        # write the data visualization
-        st.markdown("### The penguins data visualization")
+        elif sidebar_option == "Show data information":
+            buffer = io.StringIO()  # create a buffer object to store the dataframe information
+            self.data.info(buf=buffer)
+            s = buffer.getvalue()  # get the dataframe information from the buffer object
+            # split the dataframe information into a list
+            s = s.split('\n')
+            # write the data information
+            st.write("The penguins data information")
+            st.write(s)  # write the data information
 
-        # create side bar menu for the data visualization
-        st.sidebar.header("Data analysis")
-        st.sidebar.markdown("### The penguins data visualization")
-        # create a checkbox to select the data visualization
-        # if the checkbox is selected show the data visualization
-        if st.sidebar.checkbox("Show data visualization"):
+        elif sidebar_option == "Show data visualization":
+            st.write("The penguins data visualization")
+            # create a subplot
+            fig, ax = plt.subplots(figsize=(10, 10))
+            # plot the data
+            sns.countplot(x="species", data=self.data, ax=ax)
+            # show the plot
+            st.pyplot(fig)
+
+        species_data = self.data["species"].unique().tolist()
+        species_data.insert(0, "all")
+        with st.spinner('Wait for it...'):
+            time.sleep(5)
+
+            st.success(f"penguıns species: {species_data}")
+
+        check_viz = st.sidebar.checkbox("Show data visualization")
+        if check_viz:
 
             selected_species = st.sidebar.selectbox("Select a species to visualize",
-                                                    self.data["species"].unique())
+                                                    species_data)
+
+            # create a checkbox to select  islands to visualize
+            select_island = st.sidebar.checkbox("Show penguins by island")
+
+            select_sex = st.sidebar.checkbox(
+                "Show penguins by gender")
+
             # write the selected species
             st.write("You selected:", selected_species)
             select_x = st.sidebar.selectbox("Select a column to plot on the x-axis",
@@ -69,8 +99,31 @@ class Penguin_EDA:
             # create a scatter plot of the selected species and the selected columns on the x and y axis
             fig, axes = plt.subplots(1, 1, figsize=(10, 10))
             sns.scatterplot(x=select_x, y=select_y,
-                            data=self.data[self.data["species"] == selected_species], ax=axes)
+                            data=self.data,
+                            hue=("species" if selected_species !=
+                                 "all" else None),
+                            style=("island" if select_island else None),
+                            ax=axes)
             st.pyplot(fig)
+
+            # create a bar plot of the selected species and the selected columns on the x and y axis
+            fig, axes = plt.subplots(1, 1, figsize=(10, 10))
+            sns.barplot(x=select_x, y=select_y,
+                        data=self.data,
+                        hue=("species" if selected_species !=
+                             "all" else None),
+                        ax=axes)
+            st.pyplot(fig)
+
+            if selected_species == "all":
+                # create a bar chart to show the distribution of the species
+                st.markdown("### The penguins species distribution")
+                st.bar_chart(self.data["species"].value_counts())
+                st.pyplot()
+            else:
+                st.bar_chart(
+                    self.data[self.data["species"] == selected_species]["species"].value_counts())
+                st.pyplot()
 
 
 if __name__ == "__main__":
