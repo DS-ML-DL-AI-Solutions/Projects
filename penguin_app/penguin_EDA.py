@@ -118,16 +118,24 @@ class Penguin_EDA:
 
             # create a scatter plot of the selected species and the selected columns on the x and y axis
             fig, axes = plt.subplots(1, 1, figsize=(10, 10))
+            #set the style of the plot
+            sns.set(style="whitegrid")
             sns.scatterplot(x=select_x, y=select_y,
                             data=self.data,
                             hue=("species" if selected_species !=
                                  "all" else None),
                             style=("island" if select_island else None),
                             ax=axes)
+            plt.legend(loc='upper right')
+            plt.title("Penguins by Species")
+            plt.xlabel(select_x)
+            plt.ylabel(select_y)
             st.pyplot(fig)
 
             # create a bar plot of the selected species and the selected columns on the x and y axis
             fig, axes = plt.subplots(1, 1, figsize=(10, 10))
+            #set the style of the plot
+            sns.set(style="rdbu")
             sns.barplot(x=select_x, y=select_y,
                         data=self.data,
                         hue=("species" if selected_species !=
@@ -194,7 +202,20 @@ class Penguin_EDA:
 
 if __name__ == "__main__":
     # load the data
-    data_path = os.path.join(os.path.dirname(__file__), "penguins.csv")
-    data = pd.read_csv(data_path)  # load the data from the csv file
+    try:
+        datafile=st.file_uploader("Upload your data file", type=["csv"]) # upload the data file from the computer and read it as a pandas dataframe
+        #wait for it...
+        with st.spinner('Wait for file uploading...'):
+            time.sleep(10)
+        if datafile is not None:
+            st.success("Data loaded successfully")
+            df=pd.read_csv(datafile)
+        else:     
+            data_path = os.path.join(os.path.dirname(__file__), "penguins.csv")
+            df = pd.read_csv(data_path)
+
+        app = Penguin_EDA(df)  # create the app
+    except Exception as e:
+        st.error(e)
     # create the app
-    app = Penguin_EDA(data)  # create the app
+  
