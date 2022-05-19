@@ -12,12 +12,14 @@ st.write(('This app simulates a thousand coin flips using the chance of heads in
           ' means of the samples, in order to illustrate the Central Limit Theorem!'))
 st.markdown('<h1>This is a simple program to create a plot of the **Central Limit Theorem** with the **binomal distribution**</h1>', unsafe_allow_html=True)
 
+# create number input for the probability of success
 perc_heads = st.number_input(
     label='Chance of Coins Landing on Heads', min_value=0.0, max_value=1.0, value=.5)
+# create text input for graph title
 graph_title = st.text_input(label='Title of the Graph', value='Coin Flip Distribution', type='default',
                             placeholder='Enter the title of the graph', max_chars=100)
-
-binom_dist = np.random.binomial(1, perc_heads, 1000)
+#create data frame for the binomial distribution
+binom_dist = np.random.binomial(n=1, p=perc_heads, size=1000) # n is the number of trials, p is the probability of success and size is the number of samples
 
 
 list_of_means = []
