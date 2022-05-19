@@ -37,7 +37,6 @@ distribution_type = st.sidebar.selectbox('Select the distribution type', ['Norma
                                          index=0, key='distribution_type')  # set the default value of the combo box to the first item in the list
 
 
-
 if distribution_type == 'Normal':
     # create number input for the mean of the normal distribution
     mean_normal = st.sidebar.number_input(
@@ -52,13 +51,13 @@ if distribution_type == 'Normal':
     # create normal distribution datasets with user inputs
     dist_normal = np.random.normal(mean_normal, std_normal, num_samples)
 
-      # create a random number matrix (5 rows, 4 columns) gausian distribution with mean 0 and standard deviation 1
+    # create a random number matrix (5 rows, 4 columns) gausian distribution with mean 0 and standard deviation 1
     last_row = np.random.randn(5, 4)
 
     st.write("plotting random normal distribution")
     # create a line chart width=600, height=400
     chart = st.line_chart(last_row, width=600, height=400)
-    
+
     for i in range(101):
         # update the progress bar with the current value
         progress_bar.progress(i)
@@ -74,21 +73,21 @@ if distribution_type == 'Normal':
 
     st.write("plotting normal distribution histogram")
     df = pd.DataFrame(last_row).reset_index(inplace=False)
-    st.hi
-    # create a figure and axes object for the histogram plot with a size of 15x12
-    fig, ax = plt.subplots(figsize=(15, 12))
+
     # melt the dataframe to create a long format dataframe
     df_long = pd.melt(df, value_vars=df.columns.tolist()[1:],
                       id_vars=["index"], var_name='variable', value_name='value')
 
-    st.write(df_long)
+    st.dataframe(df_long)
+    # set plot style
     sns.set(style="whitegrid")
+    # create a figure and axes object for the histogram plot with a size of 15x12
+    fig, ax = plt.subplots(figsize=(15, 12))
     sns.displot(x="value", data=df_long, hue="variable", kind="hist", alpha=0.5,
                 ax=ax)  # create a histogram plot , `kind` must be one of `bar`, `box`, `kde`,'ecdf', `hex`, `hist`, `pie` or `scatter`
-    st.pyplot()  # display the histogram plot
+    st.pyplot(fig)  # display the histogram plot
 
-    st.Dataframe(last_row)  # print the random number
-
+    st.dataframe(df)  # print the random number
 
 
 elif distribution_type == 'Binomial':
@@ -104,11 +103,12 @@ elif distribution_type == 'Binomial':
 
     # create binomial distribution datasets with user inputs
     # create a binomial distribution n is the number of trials, p is the probability of success and size is the number of samples
-    dist_binomial = np.random.binomial(n=num_trials, p=prob_success, size=num_samples)
+    dist_binomial = np.random.binomial(
+        n=num_trials, p=prob_success, size=num_samples)
     st.write("plotting random binomial distribution")
     chart2 = st.line_chart(dist_binomial)  # create a line chart
-    
-    st.Dataframe(dist_binomial)  # print the random number
+
+    st.dataframe(dist_binomial.head(20))  # print the random number
 
 
 else:
