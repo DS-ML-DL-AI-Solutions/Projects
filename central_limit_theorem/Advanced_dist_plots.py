@@ -25,7 +25,7 @@ import sys
 st.sidebar.header('Choose an option')
 
 # create combo box for  distrubtion type
-distribution_type = st.sidebar.selectbox('Select the distribution type', ['', 'All', 'Normal', 'Log Normal', 'Uniform', 'Triangular', 'Exponential', 'Gamma', 'Beta', 'Poisson', 'Binomial', 'Chi-Squared', 'F-Distribution'],
+distribution_type = st.sidebar.selectbox('Select the distribution type', ['All', 'Normal', 'Log Normal', 'Uniform', 'Triangular', 'Exponential', 'Gamma', 'Beta', 'Poisson', 'Binomial', 'Chi-Squared', 'F-Distribution'],
                                          index=0, key='distribution_type')  # set the default value of the combo box to the first item in the list
 
 # create combo box for the user to select the type of graph
@@ -33,8 +33,23 @@ distribution_type = st.sidebar.selectbox('Select the distribution type', ['', 'A
 graph_type = st.sidebar.selectbox(
     'Select the type of graph', ['Bar Chart', 'Line Chart', 'Scatter Plot',
                                  'Histogram', 'Box Plot', 'Violin Plot', 'Density Plot'],
-    index=0, key='graph_type')  # set the default value of the combo box to the first item in the list
+    index=3, key='graph_type')  # set the default value of the combo box to the first item in the list
 
+plot_style = st.sidebar.selectbox(
+    'Select the style of graph', [
+        "plotly", "plotly_white", "plotly_dark", "ggplot2", "seaborn", "simple_white", 'presentation', 'xgridoff',
+        'ygridoff', 'gridon', "none"],
+    index=9, key='plot_style')  # set the default value of the combo box to the first item in the list
+
+# set the default template to simple_white for the plotly charts
+pio.templates.default = "simple_white"
+
+# set the default template to ggplot2 for the plotly charts
+px.defaults.template = plot_style
+# set the default color scale to Blackbody for the plotly charts
+px.defaults.color_continuous_scale = px.colors.sequential.Blackbody
+px.defaults.width = 1000
+px.defaults.height = 720
 
 if distribution_type == 'Normal':
     # create number input for the mean of the normal distribution
@@ -510,4 +525,4 @@ elif distribution_type == 'Poissoin':
         fig = px.violin(x=dist_pois, title='Poisson Distribution')
         st.plotly_chart(fig)
 else:
-   st.error('Please select a distribution type')
+    st.error('Please select a distribution type')
