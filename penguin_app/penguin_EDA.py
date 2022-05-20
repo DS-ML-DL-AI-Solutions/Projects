@@ -32,7 +32,7 @@ class Penguin_EDA:
                    " rows and " + str(self.data_shape[1]) + " columns")  # write the shape of the data
         # write the data columns
         st.markdown("<h3>Data Columns is below</h3>", unsafe_allow_html=True)
-        st.write(self.data_columns.T)  # write the data columns
+        st.write(self.data_columns)  # write the data columns
 
         # create side bar menu for data visualization
         st.sidebar.title("Data Analysis Tools")  # sidebar title
@@ -45,7 +45,7 @@ class Penguin_EDA:
         if st.sidebar.checkbox("Show data Top 10"):  # checkbox for data top 10
             st.dataframe(self.data.head(10))
         if st.sidebar.checkbox("Show data types"):  # checkbox for data types
-            print("dtata types info :", type(self.data_types))
+            #print("dtata types info :", type(self.data_types))
             # self.data_types_df = pd.DataFrame(self.data_types)
             # st.dataframe(self.data_types_df.style.highlight_max(axis=0))
             data_types_df = self.numeric_exp(self.data)
@@ -99,6 +99,9 @@ class Penguin_EDA:
 
         check_viz = st.sidebar.checkbox("Show data visualization with Seaborn")
         if check_viz:
+            # create selecbox for seaorn plot style
+            select_style = st.sidebar.selectbox("Select a style", ["darkgrid", "whitegrid", "dark", "white", "rdbu", "ticks"],
+                                                index=0)
 
             selected_species = st.sidebar.selectbox("Select a species to visualize",
                                                     species_data)
@@ -118,13 +121,15 @@ class Penguin_EDA:
 
             # create a scatter plot of the selected species and the selected columns on the x and y axis
             fig, axes = plt.subplots(1, 1, figsize=(10, 10))
-            #set the style of the plot
-            sns.set(style="whitegrid")
+            # set the style of the plot
+            sns.set(style=select_style)
+            markers = {"Adelie": "X", "Chinstrap": "o", "Gentoo": "*"}
             sns.scatterplot(x=select_x, y=select_y,
                             data=self.data,
                             hue=("species" if selected_species !=
                                  "all" else None),
                             style=("island" if select_island else None),
+                            markers=markers,
                             ax=axes)
             plt.legend(loc='upper right')
             plt.title("Penguins by Species")
@@ -134,8 +139,8 @@ class Penguin_EDA:
 
             # create a bar plot of the selected species and the selected columns on the x and y axis
             fig, axes = plt.subplots(1, 1, figsize=(10, 10))
-            #set the style of the plot
-            sns.set(style="rdbu")
+            # set the style of the plot
+            sns.set_style("whitegrid")
             sns.barplot(x=select_x, y=select_y,
                         data=self.data,
                         hue=("species" if selected_species !=
@@ -162,25 +167,26 @@ class Penguin_EDA:
 
     def numeric_exp(self, data):
 
-        df_types = pd.DataFrame(data.dtypes, columns=['Data Type'])
+        df_types = pd.DataFrame(data.dtypes, columns=['Data_Type'])
 
-        numerical_cols = df_types[~df_types['Data Type'].isin(['object',
-                                                               'bool'])].index.values
+        # select numeric columns
+        numerical_cols = df_types[df_types['Data_Type'].isin(
+            ['int64', 'float64'])].index.values
 
         st.success(f"numeric columns : {numerical_cols}")
+
         df_types['Count'] = data.count()
         df_types['Unique Values'] = data.nunique()
-        st.warning(data.nunique())
+
         df_types['Min'] = data[numerical_cols].min()
-        st.warning(data[numerical_cols].min())
+
         df_types['Max'] = data[numerical_cols].max()
-        st.warning(data[numerical_cols].max())
+
         df_types['Average'] = data[numerical_cols].mean()
-        st.warning(data[numerical_cols].mean())
+
         df_types['Median'] = data[numerical_cols].median()
-        st.warning(data[numerical_cols].median())
+
         df_types['St. Dev.'] = data[numerical_cols].std()
-        st.warning(data[numerical_cols].std())
 
         return df_types.astype(str)
 
@@ -199,23 +205,37 @@ class Penguin_EDA:
         else:
             return dfInfo
 
+# create load file function
+# cache the function to avoid re-run the function every time the page is refreshed,
+# arg1: the function to be cached and arg2: the name of the cache file to be created and stored in the cache folder
+# allow_output_mutation=True means the function can change the output of the function without affecting the function itself ,
+#  show_spinner=False means the function will not show the spinner when the function is running
+
+
+@st.cache(allow_output_mutation=True)
+def load_file(datafile):
+    # wait for it...
+    with st.spinner('Wait for file uploading...'):
+        time.sleep(2)
+    if datafile is not None:
+        st.success("Data loaded successfully")
+        df = pd.read_csv(datafile)
+    else:
+        data_path = os.path.join(os.path.dirname(__file__), "penguins.csv")
+        df = pd.read_csv(data_path)
+    return df
+
 
 if __name__ == "__main__":
     # load the data
     try:
-        datafile=st.file_uploader("Upload your data file", type=["csv"]) # upload the data file from the computer and read it as a pandas dataframe
-        #wait for it...
-        with st.spinner('Wait for file uploading...'):
-            time.sleep(10)
-        if datafile is not None:
-            st.success("Data loaded successfully")
-            df=pd.read_csv(datafile)
-        else:     
-            data_path = os.path.join(os.path.dirname(__file__), "penguins.csv")
-            df = pd.read_csv(data_path)
+        # upload the data file from the computer and read it as a pandas dataframe,it returns a pandas dataframe
+        datafile = st.file_uploader("Upload your data file", type=["csv"])
 
-        app = Penguin_EDA(df)  # create the app
+        # load the data file and return a pandas dataframe
+        df = load_file(datafile)
+        # create an instance of the class
+        app = Penguin_EDA(df)
     except Exception as e:
         st.error(e)
     # create the app
-  
