@@ -186,11 +186,13 @@ elif distribution_type == 'Uniform':
         st.plotly_chart(fig)
 elif distribution_type == 'Triangular':
     # create number input for the lower bound of the triangular distribution
+    st.warning(
+        'you will need to enter a value in range (lower bound <= mode <= upper bound)')
     lower_bound_triangular = st.sidebar.number_input(
-        label='Enter the lower bound of the triangular distribution', min_value=0.0, max_value=1.0, value=.5)
+        label='Enter the lower bound of the triangular distribution', min_value=0.0, max_value=1.0, value=.4)
     # create number input for the mode of the triangular distribution
     mode_triangular = st.sidebar.number_input(
-        label='Enter the mode of the triangular distribution', min_value=0.0, max_value=1.0, value=.5)
+        label='Enter the mode of the triangular distribution', min_value=0.0, max_value=1.0, value=.45)
     # create number input for the upper bound of the triangular distribution
     upper_bound_triangular = st.sidebar.number_input(
         label='Enter the upper bound of the triangular distribution', min_value=0.0, max_value=1.0, value=.5)
