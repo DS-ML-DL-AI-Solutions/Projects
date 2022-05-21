@@ -1,5 +1,6 @@
 
 
+from statistics import median
 import streamlit as st
 import altair as alt
 from PIL import Image
@@ -84,11 +85,12 @@ if distribution_type == 'Normal':
         st.plotly_chart(fig)
     elif graph_type == 'Box Plot':
         # create a box plot of the normal distribution
-        fig = px.box(x=dist_normal, title='Normal Distribution')
+        fig = px.box(x=dist_normal, points='all', title='Normal Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Violin Plot':
         # create a violin plot of the normal distribution
-        fig = px.violin(x=dist_normal, title='Normal Distribution')
+        fig = px.violin(x=dist_normal, box=True, points='all',
+                        title='Normal Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Density Plot':
         # create a density plot of the normal distribution
@@ -129,11 +131,13 @@ elif distribution_type == 'Log Normal':
         st.plotly_chart(fig)
     elif graph_type == 'Box Plot':
         # create a box plot of the log normal distribution
-        fig = px.box(x=dist_log_normal, title='Log Normal Distribution')
+        fig = px.box(x=dist_log_normal, points='all',
+                     title='Log Normal Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Violin Plot':
         # create a violin plot of the log normal distribution
-        fig = px.violin(x=dist_log_normal, title='Log Normal Distribution')
+        fig = px.violin(x=dist_log_normal, box=True,
+                        points='all', title='Log Normal Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Density Plot':
         # create a density plot of the log normal distribution
@@ -174,11 +178,13 @@ elif distribution_type == 'Uniform':
         st.plotly_chart(fig)
     elif graph_type == 'Box Plot':
         # create a box plot of the uniform distribution
-        fig = px.box(x=dist_uniform, title='Uniform Distribution')
+        fig = px.box(x=dist_uniform, points='all',
+                     title='Uniform Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Violin Plot':
         # create a violin plot of the uniform distribution
-        fig = px.violin(x=dist_uniform, title='Uniform Distribution')
+        fig = px.violin(x=dist_uniform, box=True, points='all',
+                        title='Uniform Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Density Plot':
         # create a density plot of the uniform distribution
@@ -223,11 +229,13 @@ elif distribution_type == 'Triangular':
         st.plotly_chart(fig)
     elif graph_type == 'Box Plot':
         # create a box plot of the triangular distribution
-        fig = px.box(x=dist_triangular, title='Triangular Distribution')
+        fig = px.box(x=dist_triangular, points='all',
+                     title='Triangular Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Violin Plot':
         # create a violin plot of the triangular distribution
-        fig = px.violin(x=dist_triangular, title='Triangular Distribution')
+        fig = px.violin(x=dist_triangular, box=True,
+                        points='all', title='Triangular Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Density Plot':
         # create a density plot of the triangular distribution
@@ -267,11 +275,12 @@ elif distribution_type == 'Beta':
         st.plotly_chart(fig)
     elif graph_type == 'Box Plot':
         # create a box plot of the beta distribution
-        fig = px.box(x=dist_beta, title='Beta Distribution')
+        fig = px.box(x=dist_beta, points='all', title='Beta Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Violin Plot':
         # create a violin plot of the beta distribution
-        fig = px.violin(x=dist_beta, title='Beta Distribution')
+        fig = px.violin(x=dist_beta, box=True, points='all',
+                        title='Beta Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Density Plot':
         # create a density plot of the beta distribution
@@ -311,11 +320,12 @@ elif distribution_type == 'Gamma':
     elif graph_type == 'Box Plot':
         # create a box plot of the gamma distribution
 
-        fig = px.box(x=dist_gamma, title='Gamma Distribution')
+        fig = px.box(x=dist_gamma, points='all', title='Gamma Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Violin Plot':
         # create a violin plot of the gamma distribution
-        fig = px.violin(x=dist_gamma, title='Gamma Distribution')
+        fig = px.violin(x=dist_gamma, box=True, points='all',
+                        title='Gamma Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Density Plot':
         # create a density plot of the gamma distribution
@@ -351,11 +361,13 @@ elif distribution_type == 'Chi-Squared':
         st.plotly_chart(fig)
     elif graph_type == 'Box Plot':
         # create a box plot of the chi-squared distribution
-        fig = px.box(x=dist_chi, title='Chi-Squared Distribution')
+        fig = px.box(x=dist_chi, points='all',
+                     title='Chi-Squared Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Violin Plot':
         # create a violin plot of the chi-squared distribution
-        fig = px.violin(x=dist_chi, title='Chi-Squared Distribution')
+        fig = px.violin(x=dist_chi, box=True, points='all',
+                        title='Chi-Squared Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Density Plot':
         # create a density plot of the chi-squared distribution
@@ -374,7 +386,7 @@ elif distribution_type == 'F-Distribution':
 
     # create F-distribution datasets with user inputs
     dist_f = np.random.f(df_f, df_f2, num_samples)
-
+    st.write(dist_f[:10])
     # create a plot of the F-distribution
     if graph_type == 'Bar Chart':
         # create a bar chart of the F-distribution
@@ -394,12 +406,15 @@ elif distribution_type == 'F-Distribution':
         st.plotly_chart(fig)
     elif graph_type == 'Box Plot':
         # create a box plot of the F-distribution
-        fig = px.box(y=dist_f, title='F-Distribution')
-        st.plotly_chart(fig)
+        fig = px.box(x=dist_f, points='all',
+                     title='F-Distribution')
     elif graph_type == 'Violin Plot':
         # create a violin plot of the F-distribution
-        fig = px.violin(y=dist_f, title='F-Distribution')
+        # create violin plot with customuzed attributes
+        fig = px.violin(x=dist_f, box=True, points='all',
+                        title='F-Distribution')
         st.plotly_chart(fig)
+
     elif graph_type == 'Density Plot':
         # create a density plot of the F-distribution
         fig = px.density_contour(y=dist_f, title='F-Distribution')
@@ -438,11 +453,13 @@ elif distribution_type == 'Binomial':
         st.plotly_chart(fig)
     elif graph_type == 'Box Plot':
         # create a box plot of the binomial distribution
-        fig = px.box(x=dist_binomial, title='Binomial Distribution')
+        fig = px.box(x=dist_binomial, points='all',
+                     title='Binomial Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Violin Plot':
         # create a violin plot of the binomial distribution
-        fig = px.violin(x=dist_binomial, title='Binomial Distribution')
+        fig = px.violin(x=dist_binomial, box=True, points='all',
+                        title='Binomial Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Density Plot':
         # create a density plot of the binomial distribution
@@ -480,11 +497,13 @@ elif distribution_type == 'Exponential':
         st.plotly_chart(fig)
     elif graph_type == 'Box Plot':
         # create a box plot of the exponential distribution
-        fig = px.box(x=dist_exp, title='Exponential Distribution')
+        fig = px.box(x=dist_exp, points='all',
+                     title='Exponential Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Violin Plot':
         # create a violin plot of the exponential distribution
-        fig = px.violin(x=dist_exp, title='Exponential Distribution')
+        fig = px.violin(x=dist_exp, box=True, points='all',
+                        title='Exponential Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Density Plot':
         # create a density plot of the exponential distribution
@@ -520,11 +539,12 @@ elif distribution_type == 'Poisson':
         st.plotly_chart(fig)
     elif graph_type == 'Box Plot':
         # create a box plot of the poisson distribution
-        fig = px.box(x=dist_pois, title='Poisson Distribution')
+        fig = px.box(x=dist_pois, points='all', title='Poisson Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Violin Plot':
         # create a violin plot of the poisson distribution
-        fig = px.violin(x=dist_pois, title='Poisson Distribution')
+        fig = px.violin(x=dist_pois, box=True, points='all',
+                        title='Poisson Distribution')
         st.plotly_chart(fig)
 else:
     st.error('Please select a distribution type')
