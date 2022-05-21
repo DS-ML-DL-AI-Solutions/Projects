@@ -548,3 +548,9 @@ elif distribution_type == 'Poisson':
         st.plotly_chart(fig)
 else:
     st.error('Please select a distribution type')
+
+st.markdown("""
+        **Created by :** [Mustafa Bozkaya](https://github.com/mustafabozkaya)
+         [Kaggle](https://www.kaggle.com/mustafabozka)
+         [GitHub source](https://github.com/ds-ml-dl-ai-solutions/projects/blob/main/central_limit_theorem/)
+        """)
