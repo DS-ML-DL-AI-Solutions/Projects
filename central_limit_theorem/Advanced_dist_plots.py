@@ -49,7 +49,7 @@ pio.templates.default = "simple_white"
 px.defaults.template = plot_style
 # set the default color scale to Blackbody for the plotly charts
 px.defaults.color_continuous_scale = px.colors.sequential.Blackbody
-px.defaults.width = 1000
+px.defaults.width = 900
 px.defaults.height = 720
 
 if distribution_type == 'Normal':
@@ -73,11 +73,11 @@ if distribution_type == 'Normal':
         st.plotly_chart(fig)
     elif graph_type == 'Line Chart':
         # create a line chart of the normal distribution
-        fig = px.line(x=dist_normal, title='Normal Distribution')
+        fig = px.line(y=dist_normal, title='Normal Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Scatter Plot':
         # create a scatter plot of the normal distribution
-        fig = px.scatter(x=dist_normal, title='Normal Distribution')
+        fig = px.scatter(y=dist_normal, title='Normal Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Histogram':
         # create a histogram of the normal distribution
@@ -94,7 +94,7 @@ if distribution_type == 'Normal':
         st.plotly_chart(fig)
     elif graph_type == 'Density Plot':
         # create a density plot of the normal distribution
-        fig = px.density_contour(x=dist_normal, title='Normal Distribution')
+        fig = px.density_contour(y=dist_normal, title='Normal Distribution')
         st.plotly_chart(fig)
 
 elif distribution_type == 'Log Normal':
@@ -119,11 +119,11 @@ elif distribution_type == 'Log Normal':
         st.plotly_chart(fig)
     elif graph_type == 'Line Chart':
         # create a line chart of the log normal distribution
-        fig = px.line(x=dist_log_normal, title='Log Normal Distribution')
+        fig = px.line(y=dist_log_normal, title='Log Normal Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Scatter Plot':
         # create a scatter plot of the log normal distribution
-        fig = px.scatter(x=dist_log_normal, title='Log Normal Distribution')
+        fig = px.scatter(y=dist_log_normal, title='Log Normal Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Histogram':
         # create a histogram of the log normal distribution
@@ -166,11 +166,11 @@ elif distribution_type == 'Uniform':
         st.plotly_chart(fig)
     elif graph_type == 'Line Chart':
         # create a line chart of the uniform distribution
-        fig = px.line(x=dist_uniform, title='Uniform Distribution')
+        fig = px.line(y=dist_uniform, title='Uniform Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Scatter Plot':
         # create a scatter plot of the uniform distribution
-        fig = px.scatter(x=dist_uniform, title='Uniform Distribution')
+        fig = px.scatter(y=dist_uniform, title='Uniform Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Histogram':
         # create a histogram of the uniform distribution
@@ -188,7 +188,7 @@ elif distribution_type == 'Uniform':
         st.plotly_chart(fig)
     elif graph_type == 'Density Plot':
         # create a density plot of the uniform distribution
-        fig = px.density_contour(x=dist_uniform, title='Uniform Distribution')
+        fig = px.density_contour(y=dist_uniform, title='Uniform Distribution')
         st.plotly_chart(fig)
 elif distribution_type == 'Triangular':
     # create number input for the lower bound of the triangular distribution
@@ -217,11 +217,11 @@ elif distribution_type == 'Triangular':
         st.plotly_chart(fig)
     elif graph_type == 'Line Chart':
         # create a line chart of the triangular distribution
-        fig = px.line(x=dist_triangular, title='Triangular Distribution')
+        fig = px.line(y=dist_triangular, title='Triangular Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Scatter Plot':
         # create a scatter plot of the triangular distribution
-        fig = px.scatter(x=dist_triangular, title='Triangular Distribution')
+        fig = px.scatter(y=dist_triangular, title='Triangular Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Histogram':
         # create a histogram of the triangular distribution
@@ -240,7 +240,7 @@ elif distribution_type == 'Triangular':
     elif graph_type == 'Density Plot':
         # create a density plot of the triangular distribution
         fig = px.density_contour(
-            x=dist_triangular, title='Triangular Distribution')
+            y=dist_triangular, title='Triangular Distribution')
         st.plotly_chart(fig)
 elif distribution_type == 'Beta':
     # create number input for the alpha parameter of the beta distribution
@@ -263,11 +263,11 @@ elif distribution_type == 'Beta':
         st.plotly_chart(fig)
     elif graph_type == 'Line Chart':
         # create a line chart of the beta distribution
-        fig = px.line(x=dist_beta, title='Beta Distribution')
+        fig = px.line(y=dist_beta, title='Beta Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Scatter Plot':
         # create a scatter plot of the beta distribution
-        fig = px.scatter(x=dist_beta, title='Beta Distribution')
+        fig = px.scatter(y=dist_beta, title='Beta Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Histogram':
         # create a histogram of the beta distribution
@@ -284,7 +284,7 @@ elif distribution_type == 'Beta':
         st.plotly_chart(fig)
     elif graph_type == 'Density Plot':
         # create a density plot of the beta distribution
-        fig = px.density_contour(x=dist_beta, title='Beta Distribution')
+        fig = px.density_contour(y=dist_beta, title='Beta Distribution')
         st.plotly_chart(fig)
 elif distribution_type == 'Gamma':
     # create number input for the shape parameter of the gamma distribution
@@ -307,11 +307,11 @@ elif distribution_type == 'Gamma':
         st.plotly_chart(fig)
     elif graph_type == 'Line Chart':
         # create a line chart of the gamma distribution
-        fig = px.line(x=dist_gamma, title='Gamma Distribution')
+        fig = px.line(y=dist_gamma, title='Gamma Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Scatter Plot':
         # create a scatter plot of the gamma distribution
-        fig = px.scatter(x=dist_gamma, title='Gamma Distribution')
+        fig = px.scatter(y=dist_gamma, title='Gamma Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Histogram':
         # create a histogram of the gamma distribution
@@ -329,7 +329,7 @@ elif distribution_type == 'Gamma':
         st.plotly_chart(fig)
     elif graph_type == 'Density Plot':
         # create a density plot of the gamma distribution
-        fig = px.density_contour(x=dist_gamma, title='Gamma Distribution')
+        fig = px.density_contour(y=dist_gamma, title='Gamma Distribution')
         st.plotly_chart(fig)
 elif distribution_type == 'Chi-Squared':
     # create number input for the degrees of freedom of the chi-squared distribution
@@ -349,11 +349,11 @@ elif distribution_type == 'Chi-Squared':
         st.plotly_chart(fig)
     elif graph_type == 'Line Chart':
         # create a line chart of the chi-squared distribution
-        fig = px.line(x=dist_chi, title='Chi-Squared Distribution')
+        fig = px.line(y=dist_chi, title='Chi-Squared Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Scatter Plot':
         # create a scatter plot of the chi-squared distribution
-        fig = px.scatter(x=dist_chi, title='Chi-Squared Distribution')
+        fig = px.scatter(y=dist_chi, title='Chi-Squared Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Histogram':
         # create a histogram of
@@ -371,7 +371,7 @@ elif distribution_type == 'Chi-Squared':
         st.plotly_chart(fig)
     elif graph_type == 'Density Plot':
         # create a density plot of the chi-squared distribution
-        fig = px.density_contour(x=dist_chi, title='Chi-Squared Distribution')
+        fig = px.density_contour(y=dist_chi, title='Chi-Squared Distribution')
         st.plotly_chart(fig)
 elif distribution_type == 'F-Distribution':
     # create number input for the degrees of freedom of the F-distribution
@@ -441,11 +441,11 @@ elif distribution_type == 'Binomial':
         st.plotly_chart(fig)
     elif graph_type == 'Line Chart':
         # create a line chart of the binomial distribution
-        fig = px.line(x=dist_binomial, title='Binomial Distribution')
+        fig = px.line(y=dist_binomial, title='Binomial Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Scatter Plot':
         # create a scatter plot of the binomial distribution
-        fig = px.scatter(x=dist_binomial, title='Binomial Distribution')
+        fig = px.scatter(y=dist_binomial, title='Binomial Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Histogram':
         # create a histogram of the binomial distribution
@@ -464,7 +464,7 @@ elif distribution_type == 'Binomial':
     elif graph_type == 'Density Plot':
         # create a density plot of the binomial distribution
         fig = px.density_contour(
-            x=dist_binomial, title='Binomial Distribution')
+            y=dist_binomial, title='Binomial Distribution')
         st.plotly_chart(fig)
 
 elif distribution_type == 'Exponential':
@@ -485,11 +485,11 @@ elif distribution_type == 'Exponential':
         st.plotly_chart(fig)
     elif graph_type == 'Line Chart':
         # create a line chart of the exponential distribution
-        fig = px.line(x=dist_exp, title='Exponential Distribution')
+        fig = px.line(y=dist_exp, title='Exponential Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Scatter Plot':
         # create a scatter plot of the exponential distribution
-        fig = px.scatter(x=dist_exp, title='Exponential Distribution')
+        fig = px.scatter(y=dist_exp, title='Exponential Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Histogram':
         # create a histogram of the exponential distribution
@@ -507,7 +507,7 @@ elif distribution_type == 'Exponential':
         st.plotly_chart(fig)
     elif graph_type == 'Density Plot':
         # create a density plot of the exponential distribution
-        fig = px.density_contour(x=dist_exp, title='Exponential Distribution')
+        fig = px.density_contour(y=dist_exp, title='Exponential Distribution')
         st.plotly_chart(fig)
 elif distribution_type == 'Poisson':
     # create number input for the rate parameter of the poisson distribution
@@ -527,11 +527,11 @@ elif distribution_type == 'Poisson':
         st.plotly_chart(fig)
     elif graph_type == 'Line Chart':
         # create a line chart of the poisson distribution
-        fig = px.line(x=dist_pois, title='Poisson Distribution')
+        fig = px.line(y=dist_pois, title='Poisson Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Scatter Plot':
         # create a scatter plot of the poisson distribution
-        fig = px.scatter(x=dist_pois, title='Poisson Distribution')
+        fig = px.scatter(y=dist_pois, title='Poisson Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Histogram':
         # create a histogram of the poisson distribution
@@ -545,6 +545,10 @@ elif distribution_type == 'Poisson':
         # create a violin plot of the poisson distribution
         fig = px.violin(x=dist_pois, box=True, points='all',
                         title='Poisson Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Density Plot':
+        # create a density plot of the poisson distribution
+        fig = px.density_contour(y=dist_pois, title='Poisson Distribution')
         st.plotly_chart(fig)
 else:
     st.error('Please select a distribution type')
