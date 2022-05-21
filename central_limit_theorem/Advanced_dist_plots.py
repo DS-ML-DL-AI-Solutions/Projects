@@ -364,10 +364,10 @@ elif distribution_type == 'Chi-Squared':
 elif distribution_type == 'F-Distribution':
     # create number input for the degrees of freedom of the F-distribution
     df_f = st.sidebar.number_input(
-        label='Enter the degrees of freedom of the F-distribution', min_value=0.0, max_value=1.0, value=.5)
+        label='Enter the degrees of freedom of the F-distribution', min_value=1.0, max_value=10.0, value=1.0)
     # create number input for the degrees of freedom of the F-distribution
     df_f2 = st.sidebar.number_input(
-        label='Enter the degrees of freedom of the F-distribution', min_value=0.0, max_value=1.0, value=.5)
+        label='Enter the degrees of freedom of the F-distribution', min_value=1.0, max_value=10.0, value=2.0)
     # create number input for the number of samples
     num_samples = st.sidebar.number_input(
         label='Enter the number of samples', min_value=0, max_value=1000000, value=1000)
@@ -378,31 +378,31 @@ elif distribution_type == 'F-Distribution':
     # create a plot of the F-distribution
     if graph_type == 'Bar Chart':
         # create a bar chart of the F-distribution
-        fig = px.bar(x=dist_f, title='F-Distribution')
+        fig = px.bar(y=dist_f, title='F-Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Line Chart':
         # create a line chart of the F-distribution
-        fig = px.line(x=dist_f, title='F-Distribution')
+        fig = px.line(y=dist_f, title='F-Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Scatter Plot':
         # create a scatter plot of the F-distribution
-        fig = px.scatter(x=dist_f, title='F-Distribution')
+        fig = px.scatter(y=dist_f, title='F-Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Histogram':
         # create a histogram of the F-distribution
-        fig = px.histogram(x=dist_f, title='F-Distribution')
+        fig = px.histogram(y=dist_f, title='F-Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Box Plot':
         # create a box plot of the F-distribution
-        fig = px.box(x=dist_f, title='F-Distribution')
+        fig = px.box(y=dist_f, title='F-Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Violin Plot':
         # create a violin plot of the F-distribution
-        fig = px.violin(x=dist_f, title='F-Distribution')
+        fig = px.violin(y=dist_f, title='F-Distribution')
         st.plotly_chart(fig)
     elif graph_type == 'Density Plot':
         # create a density plot of the F-distribution
-        fig = px.density_contour(x=dist_f, title='F-Distribution')
+        fig = px.density_contour(y=dist_f, title='F-Distribution')
         st.plotly_chart(fig)
 
 elif distribution_type == 'Binomial':
@@ -490,7 +490,7 @@ elif distribution_type == 'Exponential':
         # create a density plot of the exponential distribution
         fig = px.density_contour(x=dist_exp, title='Exponential Distribution')
         st.plotly_chart(fig)
-elif distribution_type == 'Poissoin':
+elif distribution_type == 'Poisson':
     # create number input for the rate parameter of the poisson distribution
     rate_pois = st.sidebar.number_input(
         label='Enter the rate parameter of the poisson distribution', min_value=0.0, max_value=1.0, value=.5)
