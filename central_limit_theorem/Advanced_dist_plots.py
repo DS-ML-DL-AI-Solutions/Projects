@@ -19,14 +19,17 @@ import os
 import glob
 import shutil
 import sys
+import scipy.stats as stats
 
 # ######################
 # create a sidebar with buttons
 # ######################
 st.sidebar.header('Choose an option')
 
+
 # create combo box for  distrubtion type
-distribution_type = st.sidebar.selectbox('Select the distribution type', ['All', 'Normal', 'Log Normal', 'Uniform', 'Triangular', 'Exponential', 'Gamma', 'Beta', 'Poisson', 'Binomial', 'Chi-Squared', 'F-Distribution'],
+distribution_type = st.sidebar.selectbox('Select the distribution type', ['All', 'Normal', 'Log Normal', 'Uniform', 'Triangular',
+                                                                          'Exponential', 'Gamma', 'Beta', 'Poisson', 'Binomial', 'Chi-Squared', 'F-Distribution', 'Bernoulli', 'Negative Binomial', 'Geometric', 'Weibull'],
                                          index=0, key='distribution_type')  # set the default value of the combo box to the first item in the list
 
 # create combo box for the user to select the type of graph
@@ -550,6 +553,348 @@ elif distribution_type == 'Poisson':
         # create a density plot of the poisson distribution
         fig = px.density_contour(y=dist_pois, title='Poisson Distribution')
         st.plotly_chart(fig)
+elif distribution_type == 'Bernoulli':
+    # create number input for the probability of success of the bernoulli distribution
+    prob_bern = st.sidebar.number_input(
+        label='Enter the probability of success of the bernoulli distribution', min_value=0.0, max_value=1.0, value=.5)
+    # create number input for the number of samples
+    num_samples = st.sidebar.number_input(
+        label='Enter the number of samples', min_value=0, max_value=1000000, value=1000)
+
+    # create bernoulli distribution datasets with user inputs
+    # bernoilli distribution is a discrete distribution. it is different from the binomial distribution because it is not a continuous distribution
+
+    dist_bern = stats.bernoulli(prob_bern).rvs(num_samples)
+
+    # create a plot of the bernoulli distribution
+    if graph_type == 'Bar Chart':
+        # create a bar chart of the bernoulli distribution
+        fig = px.bar(x=dist_bern, title='Bernoulli Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Line Chart':
+        # create a line chart of the bernoulli distribution
+        fig = px.line(y=dist_bern, title='Bernoulli Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Scatter Plot':
+        # create a scatter plot of the bernoulli distribution
+        fig = px.scatter(y=dist_bern, title='Bernoulli Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Histogram':
+        # create a histogram of the bernoulli distribution
+        fig = px.histogram(x=dist_bern, title='Bernoulli Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Box Plot':
+        # create a box plot of the bernoulli distribution
+        fig = px.box(x=dist_bern, points='all', title='Bernoulli Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Violin Plot':
+        # create a violin plot of the bernoulli distribution
+        fig = px.violin(x=dist_bern, box=True, points='all',
+                        title='Bernoulli Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Density Plot':
+        # create a density plot of the bernoulli distribution
+        fig = px.density_contour(y=dist_bern, title='Bernoulli Distribution')
+        st.plotly_chart(fig)
+
+    # create a plot of the bernoulli distribution
+    if graph_type == 'Bar Chart':
+        # create a bar chart of the bernoulli distribution
+        fig = px.bar(x=dist_bern, title='Bernoulli Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Line Chart':
+        # create a line chart of the bernoulli distribution
+        fig = px.line(y=dist_bern, title='Bernoulli Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Scatter Plot':
+        # create a scatter plot of the bernoulli distribution
+        fig = px.scatter(y=dist_bern, title='Bernoulli Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Histogram':
+        # create a histogram of the bernoulli distribution
+        fig = px.histogram(x=dist_bern, title='Bernoulli Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Box Plot':
+        # create a box plot of the bernoulli distribution
+        fig = px.box(x=dist_bern, points='all', title='Bernoulli Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Violin Plot':
+        # create a violin plot of the beroulli distribution
+        fig = px.violin(x=dist_bern, box=True, points='all',
+                        title='Bernoulli Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Density Plot':
+        # create a density plot of the bernoulli distribution
+        fig = px.density_contour(y=dist_bern, title='Bernoulli Distribution')
+        st.plotly_chart(fig)
+elif distribution_type == 'Negative Binomial':
+    # create number input for the number of successes
+    num_success = st.sidebar.number_input(
+        label='Enter the number of successes', min_value=0, max_value=1000000, value=1000)
+    # create number input for the probability of success
+    prob_success = st.sidebar.number_input(
+        label='Enter the probability of success', min_value=0.0, max_value=1.0, value=.5)
+    # create number input for the number of samples
+    num_samples = st.sidebar.number_input(
+        label='Enter the number of samples', min_value=0, max_value=1000000, value=1000)
+
+    # create negative binomial distribution datasets with user inputs
+    dist_negbin = np.random.negative_binomial(
+        num_success, prob_success, num_samples)
+
+    # create a plot of the negative binomial distribution
+    if graph_type == 'Bar Chart':
+        # create a bar chart of the negative binomial distribution
+        fig = px.bar(x=dist_negbin, title='Negative Binomial Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Line Chart':
+        # create a line chart of the negative binomial distribution
+        fig = px.line(y=dist_negbin, title='Negative Binomial Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Scatter Plot':
+        # create a scatter plot of the negative binomial distribution
+        fig = px.scatter(y=dist_negbin, title='Negative Binomial Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Histogram':
+        # create a histogram of the negative binomial distribution
+        fig = px.histogram(
+            x=dist_negbin, title='Negative Binomial Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Box Plot':
+        # create a box plot of the negative binomial distribution
+        fig = px.box(x=dist_negbin, points='all',
+                     title='Negative Binomial Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Violin Plot':
+        # create a violin plot of the negative binomial distribution
+        fig = px.violin(x=dist_negbin, box=True, points='all',
+                        title='Negative Binomial Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Density Plot':
+        # create a density plot of the negative binomial distribution
+        fig = px.density_contour(
+            y=dist_negbin, title='Negative Binomial Distribution')
+        st.plotly_chart(fig)
+elif distribution_type == 'Geometric':
+    # create number input for the probability of success
+    prob_geo = st.sidebar.number_input(
+        label='Enter the probability of success', min_value=0.0, max_value=1.0, value=.5)
+    # create number input for the number of samples
+    num_samples = st.sidebar.number_input(
+        label='Enter the number of samples', min_value=0, max_value=1000000, value=1000)
+
+    # create geometric distribution datasets with user inputs
+    dist_geo = np.random.geometric(prob_geo, num_samples)
+
+    # create a plot of the geometric distribution
+    if graph_type == 'Bar Chart':
+        # create a bar chart of the geometric distribution
+        fig = px.bar(x=dist_geo, title='Geometric Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Line Chart':
+        # create a line chart of the geometric distribution
+        fig = px.line(y=dist_geo, title='Geometric Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Scatter Plot':
+        # create a scatter plot of the geometric distribution
+        fig = px.scatter(y=dist_geo, title='Geometric Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Histogram':
+        # create a histogram of the geometric distribution
+        fig = px.histogram(x=dist_geo, title='Geometric Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Box Plot':
+        # create a box plot of the geometric distribution
+        fig = px.box(x=dist_geo, points='all', title='Geometric Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Violin Plot':
+        # create a violin plot of the geometric distribution
+        fig = px.violin(x=dist_geo, box=True, points='all',
+                        title='Geometric Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Density Plot':
+        # create a density plot of the geometric distribution
+        fig = px.density_contour(y=dist_geo, title='Geometric Distribution')
+        st.plotly_chart(fig)
+elif distribution_type == 'Hypergeometric':
+    # create number input for the number of successes
+    num_success = st.sidebar.number_input(
+        label='Enter the number of successes', min_value=0, max_value=1000000, value=1000)
+    # create number input for the number of failures
+    num_failure = st.sidebar.number_input(
+        label='Enter the number of failures', min_value=0, max_value=1000000, value=1000)
+    # create number input for the number of samples
+    num_samples = st.sidebar.number_input(
+        label='Enter the number of samples', min_value=0, max_value=1000000, value=1000)
+
+    # create hypergeometric distribution datasets with user inputs
+    dist_hyper = np.random.hypergeometric(
+        num_success, num_failure, num_samples)
+
+    # create a plot of the hypergeometric distribution
+    if graph_type == 'Bar Chart':
+        # create a bar chart of the hypergeometric distribution
+        fig = px.bar(x=dist_hyper, title='Hypergeometric Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Line Chart':
+        # create a line chart of the hypergeometric distribution
+        fig = px.line(y=dist_hyper, title='Hypergeometric Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Scatter Plot':
+        # create a scatter plot of the hypergeometric distribution
+        fig = px.scatter(y=dist_hyper, title='Hypergeometric Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Histogram':
+        # create a histogram of the hypergeometric distribution
+        fig = px.histogram(x=dist_hyper, title='Hypergeometric Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Box Plot':
+        # create a box plot of the hypergeometric distribution
+        fig = px.box(x=dist_hyper, points='all',
+                     title='Hypergeometric Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Violin Plot':
+        # create a violin plot of the hypergeometric distribution
+        fig = px.violin(x=dist_hyper, box=True, points='all',
+                        title='Hypergeometric Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Density Plot':
+        # create a density plot of the hypergeometric distribution
+        fig = px.density_contour(
+            y=dist_hyper, title='Hypergeometric Distribution')
+        st.plotly_chart(fig)
+elif distribution_type == 'Multinomial':
+    # create number input for the number of trials
+    num_trials = st.sidebar.number_input(
+        label='Enter the number of trials', min_value=0, max_value=1000000, value=1000)
+    # create number input for the number of samples
+    num_samples = st.sidebar.number_input(
+        label='Enter the number of samples', min_value=0, max_value=1000000, value=1000)
+
+    # create multinomial distribution datasets with user inputs
+    dist_mult = np.random.multinomial(num_trials, num_samples)
+
+    # create a plot of the multinomial distribution
+    if graph_type == 'Bar Chart':
+        # create a bar chart of the multinomial distribution
+        fig = px.bar(x=dist_mult, title='Multinomial Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Line Chart':
+        # create a line chart of the multinomial distribution
+        fig = px.line(y=dist_mult, title='Multinomial Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Scatter Plot':
+        # create a scatter plot of the multinomial distribution
+        fig = px.scatter(y=dist_mult, title='Multinomial Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Histogram':
+        # create a histogram of the multinomial distribution
+        fig = px.histogram(x=dist_mult, title='Multinomial Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Box Plot':
+        # create a box plot of the multinomial distribution
+        fig = px.box(x=dist_mult, points='all',
+                     title='Multinomial Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Violin Plot':
+        # create a violin plot of the multinomial distribution
+        fig = px.violin(x=dist_mult, box=True, points='all',
+                        title='Multinomial Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Density Plot':
+        # create a density plot of the multinomial distribution
+        fig = px.density_contour(y=dist_mult, title='Multinomial Distribution')
+        st.plotly_chart(fig)
+
+elif distribution_type == 'Weibull':
+    # create number input for the shape parameter
+    shape = st.sidebar.number_input(
+        label='Enter the shape parameter', min_value=0, max_value=1000000, value=1000)
+    # create number input for the scale parameter
+    scale = st.sidebar.number_input(
+        label='Enter the scale parameter', min_value=0, max_value=1000000, value=1000)
+
+    # create weibull distribution datasets with user inputs
+    dist_weibull = np.random.weibull(shape, scale)
+
+    # create a plot of the weibull distribution
+    if graph_type == 'Bar Chart':
+        # create a bar chart of the weibull distribution
+        fig = px.bar(x=dist_weibull, title='Weibull Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Line Chart':
+        # create a line chart of the weibull distribution
+        fig = px.line(y=dist_weibull, title='Weibull Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Scatter Plot':
+        # create a scatter plot of the weibull distribution
+        fig = px.scatter(y=dist_weibull, title='Weibull Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Histogram':
+        # create a histogram of the weibull distribution
+        fig = px.histogram(x=dist_weibull, title='Weibull Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Box Plot':
+        # create a box plot of the weibull distribution
+        fig = px.box(x=dist_weibull, points='all',
+                     title='Weibull Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Violin Plot':
+        # create a violin plot of the weibull distribution
+        fig = px.violin(x=dist_weibull, box=True, points='all',
+                        title='Weibull Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Density Plot':
+        # create a density plot of the weibull distribution
+        fig = px.density_contour(y=dist_weibull, title='Weibull Distribution')
+        st.plotly_chart(fig)
+
+
+elif distribution_type == 'Student-T':
+    # create number input for the degrees of freedom
+    df = st.sidebar.number_input(
+        label='Enter the degrees of freedom', min_value=0, max_value=1000000, value=10)
+    # create number input for the scale parameter
+    scale = st.sidebar.number_input(
+        label='Enter the scale parameter', min_value=0, max_value=1000000, value=100)
+
+    # create student-t distribution datasets with user inputs
+    dist_student = np.random.student_t(df, scale)
+
+    # create a plot of the student-t distribution
+    if graph_type == 'Bar Chart':
+        # create a bar chart of the student-t distribution
+        fig = px.bar(x=dist_student, title='Student-T Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Line Chart':
+        # create a line chart of the student-t distribution
+        fig = px.line(y=dist_student, title='Student-T Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Scatter Plot':
+        # create a scatter plot of the student-t distribution
+        fig = px.scatter(y=dist_student, title='Student-T Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Histogram':
+        # create a histogram of the student-t distribution
+        fig = px.histogram(x=dist_student, title='Student-T Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Box Plot':
+        # create a box plot of the student-t distribution
+        fig = px.box(x=dist_student, points='all',
+                     title='Student-T Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Violin Plot':
+        # create a violin plot of the student-t distribution
+        fig = px.violin(x=dist_student, box=True, points='all',
+                        title='Student-T Distribution')
+        st.plotly_chart(fig)
+    elif graph_type == 'Density Plot':
+        # create a density plot of the student-t distribution
+        fig = px.density_contour(
+            y=dist_student, title='Student-T Distribution')
+        st.plotly_chart(fig)
+
+
 else:
     st.error('Please select a distribution type')
 
