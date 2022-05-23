@@ -81,17 +81,19 @@ class Penguin_EDA:
 
             st.write(info_df)
         # checkbox for data information
-        if st.sidebar.checkbox("Show data visualization "):
+        if st.sidebar.checkbox("Show plot count of each feature in the data"):
+            feature=st.selectbox("Select a feature",self.data.select_dtypes(exclude=['int','float']).columns)
             st.write("The penguins data visualization")
             # create a subplot
             fig, ax = plt.subplots(figsize=(10, 10))
             # plot the data
-            sns.countplot(x="species", data=self.data, ax=ax)
+            sns.countplot(x=feature, data=self.data, ax=ax)
             # show the plot
             st.pyplot(fig)
 
         species_data = self.data["species"].unique().tolist()
         species_data.insert(0, "all")
+
         with st.spinner('Wait for it...'):
             time.sleep(2)
 
